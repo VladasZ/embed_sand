@@ -34,7 +34,8 @@ void connect_to_wifi() {
 
     while (WiFi.status() != WL_CONNECTED) {
         cout << "connecting ..." << endl;
-        delay(100);
+        cout << "status: " << WiFi.status() << endl;
+        delay(500);
     }
 
     cout << "connected!" << endl;
@@ -51,8 +52,9 @@ void setup_server() {
 
 void setup() {
     // put your setup code here, to run once:
-    pinMode(LED_BUILTIN, OUTPUT);
     Serial.begin(9600); // open the serial port at 9600 bps:
+
+    cout << "Starting setup" << endl;
 
     connect_to_wifi();
     setup_server();
