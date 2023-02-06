@@ -1,8 +1,8 @@
+#include <magic_enum.hpp>
 
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-
 
 #include <iostream>
 using namespace std;
@@ -35,6 +35,11 @@ void connect_to_wifi() {
     while (WiFi.status() != WL_CONNECTED) {
         cout << "connecting ..." << endl;
         cout << "status: " << WiFi.status() << endl;
+
+        auto status_name = magic_enum::enum_name(WiFi.status());
+
+        cout << status_name << endl;
+
         delay(500);
     }
 
