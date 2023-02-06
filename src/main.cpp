@@ -1,12 +1,16 @@
 
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+
 
 #include <iostream>
 using namespace std;
 
 #define WIFI_SSID "Fergel"
 #define WIFI_PASS "******"
+
+ESP8266WebServer server(80);
 
 extern "C" {
     int _write(int fd, char *ptr, int len) {
@@ -15,12 +19,12 @@ extern "C" {
     }
 }
 
+void handle_test() {
+    cout << "Received test request" << endl;
+    server.send(200, "text/html", "Test request received");
+}
 
-void setup() {
-    // put your setup code here, to run once:
-    pinMode(LED_BUILTIN, OUTPUT);
-    Serial.begin(9600); // open the serial port at 9600 bps:
-
+void connect_to_wifi() {
 
     cout << "Starting Wifi" << endl;
 
@@ -38,12 +42,24 @@ void setup() {
     cout << "local ip: " <<  Serial.println(WiFi.localIP()) << endl;
 }
 
-void loop() {
-    // put your main code here, to run repeatedly:
-    digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
-    delay(1000);                      // wait for a second
-    digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
-    delay(1000);                      // wait for a second
+void setup_server() {
+    cout << "Server setup" << endl;
 
-    cout << "Ultra skogggo4" << " multi pedven" << endl << endl;
+    server.on("/test", HTTP_GET, handle_test); // when the server receives a request with /data/ in the string then run the handleSentVar function
+    server.begin();
+}
+
+void setup() {
+    // put your setup code here, to run once:
+    pinMode(LED_BUILTIN, OUTPUT);
+    Serial.begin(9600); // open the serial port at 9600 bps:
+
+    connect_to_wifi();
+    setup_server();
+
+    cout << "Starting app" << endl;
+}
+
+void loop() {
+    server.handleClient();
 }
