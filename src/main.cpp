@@ -24,6 +24,15 @@ void handle_test() {
     server.send(200, "text/html", "Test request received");
 }
 
+void handle_blink() {
+    static bool on = true;
+    digitalWrite(LED_BUILTIN, on);
+    on = !on;
+    string stat = on ? "on" : "off";
+    string message = "The led is - " + stat;
+    server.send(200, "text/html", message.c_str());
+}
+
 void connect_to_wifi() {
 
     cout << "Starting Wifi" << endl;
@@ -52,12 +61,15 @@ void setup_server() {
     cout << "Server setup" << endl;
 
     server.on("/test", HTTP_GET, handle_test); // when the server receives a request with /data/ in the string then run the handleSentVar function
+    server.on("/blink", HTTP_GET, handle_blink); // when the server receives a request with /data/ in the string then run the handleSentVar function
     server.begin();
 }
 
 void setup() {
     // put your setup code here, to run once:
     Serial.begin(9600); // open the serial port at 9600 bps:
+
+    pinMode(LED_BUILTIN, OUTPUT);
 
     cout << "Starting setup" << endl;
 
