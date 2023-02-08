@@ -40,7 +40,9 @@ void handle_down() {
     server.send(200, "text/html", "Volume down");
 }
 
-
+void handle_identify() {
+    server.send(200, "text/html", "OK");
+}
 
 void WebServer::init() {
 
@@ -53,6 +55,7 @@ void WebServer::init() {
     server.on("/up", HTTP_GET, handle_up); // when the server receives a request with /data/ in the string then run the handleSentVar function
     server.on("/down", HTTP_GET, handle_down); // when the server receives a request with /data/ in the string then run the handleSentVar function
 
+    server.on("/identify_remote_board", HTTP_GET, handle_identify); // when the server receives a request with /data/ in the string then run the handleSentVar function
 
     server.begin();
 }
