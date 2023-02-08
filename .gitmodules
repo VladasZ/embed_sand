@@ -1,3 +1,6 @@
 [submodule "lib/magic_enum"]
 	path = lib/magic_enum
 	url = https://github.com/VladasZ/magic_enum.git
+[submodule "remote/deps/test_engine"]
+	path = remote/deps/test_engine
+	url = git@github.com:vlasdasz/test_engine.git

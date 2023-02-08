@@ -5,3 +5,8 @@
 .vscode/ipch
 
 *.orig
+
+*/.idea
+*/extern
+*/target
+*/Cargo.lock
