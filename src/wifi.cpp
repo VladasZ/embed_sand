@@ -1,4 +1,5 @@
 
+#include "mem.hpp"
 #include "wifi.hpp"
 #include <iostream>
 #include <ESP8266WiFi.h>
@@ -7,27 +8,21 @@
 using namespace std;
 
 
-#define WIFI_SSID "Fergel"
-#define WIFI_PASS "******"
-
-
 void connect_wifi() {
 
     cout << "Starting Wifi" << endl;
 
-    WiFi.begin(WIFI_SSID, WIFI_PASS);
+    auto ssid = read_ssid();
+
+    WiFi.begin(ssid.c_str(), read_pass().c_str());
 
     cout << "Wifi began" << endl;
 
     while (WiFi.status() != WL_CONNECTED) {
-        cout << "connecting ..." << endl;
-        cout << "status: " << WiFi.status() << endl;
-
-        auto status_name = magic_enum::enum_name(WiFi.status());
-
-        cout << status_name << endl;
-
-        delay(500);
+        cout << "connecting to: " << ssid << " ..." << endl;
+        cout << "Password: " << read_pass() << endl;
+        cout << "status: " << magic_enum::enum_name(WiFi.status()) << endl;
+        delay(1000);
     }
 
     cout << "connected!" << endl;

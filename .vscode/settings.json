@@ -4,6 +4,8 @@
         "iostream": "cpp",
         "type_traits": "cpp",
         "bitset": "cpp",
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "string": "cpp",
+        "array": "cpp"
     }
 }
