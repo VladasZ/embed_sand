@@ -18,11 +18,13 @@ extern "C" {
 }
 
 void setup() {
+
     Serial.begin(115200);
 
-    pinMode(LED_BUILTIN, OUTPUT);
-
+    cout << endl;
     cout << "Starting setup" << endl;
+
+    pinMode(LED_BUILTIN, OUTPUT);
 
     connect_wifi();
     WebServer::init();
@@ -33,5 +35,5 @@ void setup() {
 
 void loop() {
     WebServer::handle();
-    Remote::read_input();
+    // Remote::read_input();
 }

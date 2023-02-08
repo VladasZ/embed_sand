@@ -14,18 +14,16 @@ void connect_wifi() {
 
     auto ssid = read_ssid();
 
+    WiFi.hostname("ESP");
     WiFi.begin(ssid.c_str(), read_pass().c_str());
-
-    cout << "Wifi began" << endl;
 
     while (WiFi.status() != WL_CONNECTED) {
         cout << "connecting to: " << ssid << " ..." << endl;
-        cout << "Password: " << read_pass() << endl;
         cout << "status: " << magic_enum::enum_name(WiFi.status()) << endl;
         delay(1000);
     }
 
-    cout << "connected!" << endl;
+    cout << "status: " << magic_enum::enum_name(WiFi.status()) << endl;
 
-    cout << "local ip: " <<  Serial.println(WiFi.localIP()) << endl;
+    cout << "local ip: " <<  WiFi.localIP().toString().c_str() << endl;
 }
