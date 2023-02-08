@@ -26,6 +26,8 @@ void setup() {
 
     pinMode(LED_BUILTIN, OUTPUT);
 
+    //start_ap();
+
     connect_wifi();
     WebServer::init();
     Remote::init();
@@ -36,4 +38,5 @@ void setup() {
 void loop() {
     WebServer::handle();
     // Remote::read_input();
+    //handle_ap();
 }
